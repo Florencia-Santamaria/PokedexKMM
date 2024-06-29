@@ -2,6 +2,7 @@ package com.example.pokedexkmm.repository
 
 import com.example.pokedexkmm.data.Pokedex
 import com.example.pokedexkmm.data.PokedexClient
+import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -11,6 +12,7 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 
 open class PokedexRepository  {
     val httpClient = HttpClient {
@@ -21,8 +23,20 @@ open class PokedexRepository  {
                     Napier.v(tag = "HttpClient", message = message)
                 }
             }
-            logger
         }
+        install(ContentNegotiation) {
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                }
+            )
+        }
+    }.also {
+        initLogger()
+    }
+
+    fun initLogger() {
+        Napier.base(DebugAntilog())
     }
 
      suspend fun getPokedex(): Pokedex {

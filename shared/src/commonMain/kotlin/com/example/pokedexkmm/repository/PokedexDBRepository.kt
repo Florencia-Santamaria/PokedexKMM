@@ -1,4 +1,9 @@
 package com.example.pokedexkmm.repository
 
-class PokedexDBRepository {
+import com.example.pokedexkmm.DatabaseDriverFactory
+
+
+class PokedexDBRepository(databaseDriverRepository: DatabaseDriverFactory) {
+    private val database = PokedexDatabase(databaseDriverRepository.createDriver())
+
 }
