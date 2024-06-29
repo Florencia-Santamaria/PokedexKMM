@@ -10,8 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokedexkmm.DatabaseDriverFactory
 import com.example.pokedexkmm.android.databinding.ActivityMainBinding
 import com.example.pokedexkmm.data.Pokedex
+import com.example.pokedexkmm.data.PokedexResults
+import com.example.pokedexkmm.repository.PokedexDBRepository
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +26,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val pokedexRepository = PokedexDBRepository(DatabaseDriverFactory(this))
+
+        pokedexRepository.addPokemon(PokedexResults(name = "Charmender", url = "url123.com"))
+
+        val results= pokedexRepository.getPokemons()
+
         setContentView(binding.root)
 
         setupRecyclerView()

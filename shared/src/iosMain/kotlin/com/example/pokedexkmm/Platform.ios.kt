@@ -2,6 +2,7 @@ package com.example.pokedexkmm
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import com.example.pokedex.Database
 import platform.UIKit.UIDevice
 import com.example.pokedexkmm.PokedexDatabase
 
@@ -13,6 +14,6 @@ actual fun getPlatform(): Platform = IOSPlatform()
 
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(PokedexDatabase.Schema, "pokedex.db")
+        return NativeSqliteDriver(Database.Schema, "pokedex.db")
     }
 }

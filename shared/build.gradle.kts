@@ -64,8 +64,8 @@ kotlin {
 
 sqldelight {
     databases {
-        create("PokedexDatabase") {
-            packageName.set("com.example.pokedexkmm")
+        create("Database") {
+            packageName.set("com.example.pokedex")
         }
     }
 }
